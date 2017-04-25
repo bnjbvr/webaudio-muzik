@@ -1,42 +1,117 @@
 <meta charset=utf-8>
 <script>
-stop = false;
+var mustStop = null;
+
 function note2freq(note) {
   return Math.pow(2, (note - 69) / 12) * 440;
 }
 
 var track = {
-  tempo: 135,
-  tracks: {
-    Kick: [ 1, 0, 0, 0, 1, 0, 0, 0,
-            1, 0, 0, 0, 1, 0, 0, 0,
-            1, 0, 0, 0, 1, 0, 0, 0,
-            1, 0, 0, 0, 1, 0, 0, 0],
-    Hats: [ 0, 0, 1, 0, 0, 0, 1, 0,
-            0, 0, 1, 0, 0, 0, 1, 1,
-            0, 0, 1, 0, 0, 0, 1, 0,
-            0, 0, 1, 0, 0, 0, 1, 0 ],
-    Clap: [ 0, 0, 0, 0, 1, 0, 0, 0,
-            0, 0, 0, 0, 1, 0, 0, 0,
-            0, 0, 0, 0, 1, 0, 0, 0,
-            0, 0, 0, 0, 1, 0, 0, 0],
-    Bass: [36, 0,38,36,36,38,41, 0,
-           36,60,36, 0,39, 0,48, 0,
-           36, 0,24,60,40,40,24,24,
-           36,60,36, 0,39, 0,48, 0 ]
-  }
+  tempo: 128,
+  tracks: [
+
+    {
+        Kick: [ 1, 0, 0, 0, 1, 0, 0, 0,
+                1, 0, 0, 0, 1, 0, 0, 0,
+                1, 0, 0, 0, 1, 0, 0, 0,
+                1, 0, 0, 0, 1, 0, 0, 0],
+    },
+
+    {
+        Kick: [ 1, 0, 0, 0, 1, 0, 0, 0,
+                1, 0, 0, 0, 1, 0, 0, 0,
+                1, 0, 0, 0, 1, 0, 0, 0,
+                1, 0, 0, 0, 1, 0, 0, 0],
+        Hats: [ 0, 0, 1, 0, 0, 0, 1, 0,
+                0, 0, 1, 0, 0, 0, 1, 1,
+                0, 0, 1, 0, 0, 0, 1, 0,
+                0, 1, 0, 1, 0, 0, 1, 0 ],
+    },
+
+    {
+        Kick: [ 1, 0, 0, 0, 1, 0, 0, 0,
+                1, 0, 0, 0, 1, 0, 0, 0,
+                1, 0, 0, 0, 1, 0, 0, 0,
+                1, 0, 0, 0, 1, 0, 0, 0],
+        Hats: [ 0, 0, 1, 0, 0, 0, 1, 0,
+                0, 0, 1, 0, 0, 0, 1, 1,
+                0, 0, 1, 0, 0, 0, 1, 0,
+                0, 1, 0, 1, 0, 0, 1, 0 ],
+        playviolin: [ 0, 0, 0, 0, 1, 0, 0, 0,
+                      0, 0, 0, 0, 0, 1, 0, 0,
+                      0, 0, 0, 0, 1, 0, 0, 0,
+                      0, 0, 0, 0, 0, 1, 0, 0,
+                    ]
+    },
+
+    {
+        Kick: [ 1, 0, 0, 0, 1, 0, 0, 0,
+                1, 0, 0, 0, 1, 0, 0, 0,
+                1, 0, 0, 0, 1, 0, 0, 0,
+                1, 0, 0, 0, 1, 0, 0, 0],
+        Hats: [ 0, 0, 1, 0, 0, 0, 1, 0,
+                0, 0, 1, 0, 0, 0, 1, 1,
+                0, 0, 1, 0, 0, 0, 1, 0,
+                0, 1, 0, 1, 0, 0, 1, 0 ],
+        playviolin: [ 0, 0, 0, 0, 1, 0, 0, 0,
+                      0, 0, 0, 0, 0, 1, 0, 0,
+                      0, 0, 0, 0, 1, 0, 0, 0,
+                      0, 0, 0, 0, 0, 1, 0, 0,
+                    ],
+        playviolin2: [ 0, 0, 1, 0, 0, 0, 0, 0,
+                       0, 0, 0, 0, 0, 0, 1, 0,
+                       0, 0, 1, 0, 0, 0, 0, 0,
+                       0, 0, 0, 0, 0, 0, 1, 0,
+                     ]
+    },
+
+    {
+        Kick: [ 1, 0, 0, 0, 1, 0, 0, 0,
+                1, 0, 0, 0, 1, 0, 0, 0,
+                1, 0, 0, 0, 1, 0, 0, 0,
+                1, 0, 0, 0, 1, 0, 0, 0],
+        Hats: [ 0, 0, 1, 0, 0, 0, 1, 0,
+                0, 0, 1, 0, 0, 0, 1, 1,
+                0, 0, 1, 0, 0, 0, 1, 0,
+                0, 1, 0, 1, 0, 0, 1, 0 ],
+        playclap: [ 0, 0, 0, 0, 1, 0, 0, 0,
+                    0, 0, 0, 0, 1, 0, 0, 0,
+                    0, 0, 0, 0, 1, 0, 0, 0,
+                    0, 0, 0, 0, 1, 0, 0, 0],
+        playviolin: [ 0, 0, 0, 0, 0, 0, 1, 0,
+                      0, 0, 0, 1, 0, 0, 1, 0,
+                      0, 0, 0, 0, 0, 0, 1, 0,
+                      0, 0, 0, 1, 0, 0, 1, 0,
+                    ],
+        playviolin2: [ 0, 0, 1, 0, 0, 0, 0, 0,
+                       0, 0, 0, 0, 0, 0, 1, 0,
+                       0, 0, 1, 0, 0, 0, 0, 0,
+                       0, 0, 0, 0, 0, 0, 1, 0,
+                     ]
+      },
+
+  ]
 };
 
-function S(ac, clap, track) {
+function S(ac, instruments) {
   this.ac = ac;
-  this.track = track;
   this.sink = ac.destination;
-  this.clap = clap;
+
+  for (let key of Object.keys(instruments)) {
+      this['play' + key] = function(t) {
+          var s = this.ac.createBufferSource();
+          var g = this.ac.createGain();
+          g.gain.value = 0.5;
+          s.buffer = instruments[key];
+          s.connect(g).connect(this.sink);
+          s.start(t);
+      };
+  }
 }
 
 // time is in fractional beat
 S.prototype.clock = function() {
-  var beatLen = 60 / this.track.tempo;
+  var beatLen = 60 / track.tempo;
   return (this.ac.currentTime - this.startTime) / beatLen;
 }
 
@@ -44,15 +119,16 @@ S.prototype.clock = function() {
 S.prototype.start = function() {
   this.startTime = this.ac.currentTime;
   this.nextScheduling = 0;
+  this.trackIndex = 0;
   this.scheduler();
 }
 
 S.prototype.scheduler = function() {
-  var beatLen = 60 / this.track.tempo;
+  var beatLen = 60 / track.tempo;
 
   var lookahead = 0.5;
 
-  if (stop) {
+  if (mustStop) {
     return;
   }
 
@@ -61,12 +137,23 @@ S.prototype.scheduler = function() {
     var steps = [];
     steps.push(this.nextScheduling + beatLen / 4);
 
-    for (var i in this.track.tracks) {
+    let currentTrack = track.tracks[this.trackIndex];
+
+    if (this.clock() > 18) {
+        this.trackIndex = 4;
+    } else if (this.clock() > 12) {
+        this.trackIndex = 3;
+    } else if (this.clock() > 6) {
+        this.trackIndex = 2;
+    } else if (this.clock() > 2) {
+        this.trackIndex = 1;
+    }
+
+    for (var i in currentTrack) {
       for (var j = 0; j < steps.length; j++) {
         var idx = Math.round(steps[j] / ((beatLen / 4)));
 
-        var note =
-          this.track.tracks[i][idx % this.track.tracks[i].length];
+        var note = currentTrack[i][idx % currentTrack[i].length];
         if (note != 0) {
           // document.body.innerHTML += i + " @ " + steps[j] + "<br>";
           this[i](steps[j], note);
@@ -74,10 +161,10 @@ S.prototype.scheduler = function() {
       }
     }
 
-    this.nextScheduling += (60 / this.track.tempo / 4);
+    this.nextScheduling += (60 / track.tempo / 4);
   }
 
-  setTimeout(this.scheduler.bind(this), 15);
+  setTimeout(this.scheduler.bind(this), 16);
 }
 
 S.prototype.Kick = function(t) {
@@ -144,17 +231,6 @@ S.prototype.Hats = function(t) {
   s.start(t);
 }
 
-
-S.prototype.Clap = function(t) {
-  var s = this.ac.createBufferSource();
-  var g = this.ac.createGain();
-  g.gain.value = 0.5;
-  s.buffer = this.clap;
-  s.connect(g).connect(this.sink);
-
-  s.start(t);
-}
-
 S.prototype.Bass = function(t, note) {
   var osc1 = this.ac.createOscillator();
   var osc2 = this.ac.createOscillator();
@@ -192,23 +268,61 @@ S.prototype.Bass = function(t, note) {
   osc2.stop(t+1);
 }
 
-window.onload = function() {
+var $button = null;
+var togglePlay = (function() {
+    var state = 'stop';
+    var ac = null;
 
-  fetch("clap.ogg").then((response) => {
-    response.arrayBuffer().then((arrayBuffer) => {
-    ac = new AudioContext();
-    ac.decodeAudioData(arrayBuffer).then((clap) => {
-      var s = new S(ac, clap, track);
-      s.start();
-      });
-      });
-  });
-  document.querySelector("button").onclick = function() {
-    stop = true;
-    ac.close();
-  }
+    var instruments = {};
+
+    function fetchSample(name, location) {
+        return fetch(location)
+        .then(resp => resp.arrayBuffer())
+        .then(ab => {
+            ac = ac || new AudioContext();
+            return ac.decodeAudioData(ab);
+        })
+        .then(sound => {
+            instruments[name] = sound;
+        });
+    }
+
+    function stop() {
+        mustStop = true;
+        ac.close();
+        $button.innerHTML = "Play";
+    }
+
+    function start() {
+        ac = new AudioContext();
+
+        var s = new S(ac, instruments);
+        s.start();
+
+        $button.innerHTML = "Pause";
+    }
+
+    fetchSample('clap', 'clap.ogg')
+    .then(() => fetchSample('violin', 's1.ogg'))
+    .then(() => fetchSample('violin2', 's2.ogg'))
+
+    return function() {
+        if (state === 'stop') {
+            start();
+            state = 'play';
+            return;
+        }
+        stop();
+        state = 'stop';
+    }
+})();
+
+window.onload = function() {
+  $button = document.querySelector("button");
+  $button.onclick = togglePlay;
 }
 </script>
+
 <button>
-  Stop !
+    Play
 </button>
